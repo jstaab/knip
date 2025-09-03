@@ -1,0 +1,20 @@
+---
+Astro.response.headers.set('Cache-Control', `max-age=1800, s-maxage=1800, stale-while-revalidate=120`);
+
+/*
+use this component like
+```
+---
+import MyComponent from "./my-component"
+---
+
+<MyComponent />
+```
+*/
+
+const foo = deftest`import foo from "foo"`
+
+import Child from "./child"
+---
+
+<Child />
