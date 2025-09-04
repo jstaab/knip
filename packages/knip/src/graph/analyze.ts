@@ -241,16 +241,19 @@ export const analyze = async ({
         }
 
         if (file.imports?.external) {
-          for (const specifier of file.imports.external) {
-            const packageName = getPackageNameFromModuleSpecifier(specifier);
+          for (const import_ of file.imports.external) {
+            const packageName = getPackageNameFromModuleSpecifier(import_.specifier);
             const isHandled = packageName && deputy.maybeAddReferencedExternalDependency(ws, packageName);
             if (!isHandled)
               collector.addIssue({
                 type: 'unlisted',
                 filePath,
                 workspace: ws.name,
-                symbol: packageName ?? specifier,
-                specifier,
+                symbol: packageName ?? import_.specifier,
+                specifier: import_.specifier,
+                pos: import_.pos,
+                line: import_.line,
+                col: import_.col,
               });
           }
         }
